@@ -24,6 +24,26 @@ fun main(args: Array<String>) {
 }
 ```
 
+## Resources
+
+### _Learning RxJava_ Packt Book
+
+Chapter 12 of [_Learning RxJava_](https://www.packtpub.com/application-development/learning-rxjava) covers RxKotlin and Kotlin idioms with RxJava. 
+
+[![](https://d255esdrn735hr.cloudfront.net/sites/default/files/imagecache/ppv4_main_book_cover/B06263_cover.png)](https://www.packtpub.com/application-development/learning-rxjava) 
+
+### _Reactive Programming in Kotlin_ Packt Book
+
+The book [_Reactive Programming in Kotlin_](https://www.packtpub.com/application-development/reactive-programming-kotlin) mainly focuses on RxKotlin, as well as learning reactive programming with Kotlin. 
+
+[![](https://i.imgur.com/0GjGMn5.png)](https://www.packtpub.com/application-development/reactive-programming-kotlin) 
+
+### Kotlin Slack Channel
+
+Join us on the #rx channel in Kotlin Slack!
+
+https://kotlinlang.slack.com/messages/rx
+
 
 ## Support for RxJava 1.x and RxJava 2.x
 
@@ -31,6 +51,7 @@ Use RxKotlin 1.x versions to target RxJava 1.x.
 
 Use RxKotlin 2.x versions to target RxJava 2.x.
 
+The maintainers do not update the RxJava dependency version for every RxJava release, so you should explicitly add the desired RxJava dependency version to your `pom.xml` or `build.gradle`.
 
 ## Build
 
@@ -113,11 +134,6 @@ Use this setup for Maven:
 
 Learn more about building this project with JitPack [here](https://jitpack.io/#ReactiveX/RxKotlin).
 
-## Kotlin Slack Channel
-
-Join us on the #rx channel in Kotlin Slack!
-
-https://kotlinlang.slack.com/messages/rx
 
 
 ## Extensions 
