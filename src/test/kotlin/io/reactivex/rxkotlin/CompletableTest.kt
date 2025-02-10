@@ -3,14 +3,16 @@ package io.reactivex.rxkotlin
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.functions.Action
+import io.reactivex.observers.LambdaConsumerIntrospection
 import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Test
+import org.mockito.Mockito
 import java.util.*
 import java.util.concurrent.Callable
 
-class CompletableTest {
+class CompletableTest : KotlinTests() {
 
     @Test fun testCreateFromAction() {
         var count = 0
@@ -37,13 +39,13 @@ class CompletableTest {
     }
 
     @Test(expected = NoSuchElementException::class) fun testCreateFromSingle() {
-        val c1 = Single.just("Hello World!").toCompletable()
+        val c1 = Single.just("Hello World!").ignoreElement()
         assertNotNull(c1)
         c1.toObservable<String>().blockingFirst()
     }
 
     @Test fun testConcatAll() {
-        var list = emptyList<Int>()
+        val list = emptyList<Int>().toMutableList()
         (0 until 10)
                 .map { v -> Completable.create { list += v } }
                 .concatAll()
@@ -52,4 +54,27 @@ class CompletableTest {
                 }
     }
 
+    @Test
+    fun testSubscribeBy() {
+        Completable.complete()
+                .subscribeBy {
+                    a.received(Unit)
+                }
+        Mockito.verify(a, Mockito.times(1))
+                .received(Unit)
+    }
+
+    @Test
+    fun testSubscribeByErrorIntrospection() {
+        val disposable = Completable.complete()
+                .subscribeBy() as LambdaConsumerIntrospection
+        Assert.assertFalse(disposable.hasCustomOnError())
+    }
+
+    @Test
+    fun testSubscribeByErrorIntrospectionCustom() {
+        val disposable = Completable.complete()
+                .subscribeBy(onError = {}) as LambdaConsumerIntrospection
+        Assert.assertTrue(disposable.hasCustomOnError())
+    }
 }
